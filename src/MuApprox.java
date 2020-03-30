@@ -214,6 +214,8 @@ public class MuApprox {
     public GValueStorage[] calculateShortestPath(int base_vertex_index, MinHeap2 VLIST){
 	GValueStorage result[] = new GValueStorage[points_length];
 			
+	//System.out.println("points_length = " + points_length);
+	//System.out.println("result.length =  " + result.length);
 	//fills up result vector with the infinity values
 	for(int z = 0; z < result.length; z++){
 	    result[z] = new GValueStorage();

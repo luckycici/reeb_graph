@@ -166,7 +166,7 @@ public class ExtractReebGraph {
 		    && str.lastIndexOf(']') < str.lastIndexOf('[')  ) {
 		    prevsize = points_length;
 		    Stop2 = false;
-	            while (!Stop) {
+	        while (!Stop) {
                         str = in.readLine();
 			str = str.trim();
 		        int temp_int = str.indexOf(']');
@@ -209,6 +209,7 @@ public class ExtractReebGraph {
                                                      .doubleValue();
 	                        Points[points_length] = P;
 				points_length++;
+				//System.out.println("points_length is " + points_length);
 		            }
 			    
 			    if(str.indexOf(']') != -1)
@@ -221,14 +222,16 @@ public class ExtractReebGraph {
 			 str.lastIndexOf(']') < str.lastIndexOf('[') &&
 			 !Stop2) {
 
-		    //System.out.println("size of Points is " + Points.length);
 		    Stop2 = true;
 	            while (!Stop) {
                         str = in.readLine();
 			str = str.trim();
 			
+			
+			
 			int temp_int = str.indexOf(']');
-						
+			
+			
 			if(temp_int == 0){
 		            Stop = true;
 			}
@@ -243,21 +246,23 @@ public class ExtractReebGraph {
 			    else{
 				String temp = str.substring(0, q);
 				
-				m = temp.indexOf(',', 0);
-				n = temp.indexOf(',', m+1);
-				o = temp.indexOf(',', n+1);
+				temp = temp.stripLeading();
+
+				m = temp.indexOf(' ', 0);
+				n = temp.indexOf(' ', m+1);
+				o = temp.indexOf(' ', n+1);
 				p = temp.indexOf(',', o+1);
 			    }
-                            			    			    
-		            if (str.indexOf(']') != -1){
+ 
+	            if (str.indexOf(']') != -1){
 				Stop = true;
 			    }
 			    
 			    if (m != -1 && p == -1) {
 				
 				a = Integer.parseInt(str.substring(0,m));
-       	                        b = Integer.parseInt(str.substring(m+2,n));
-       	                        c = Integer.parseInt(str.substring(n+2,o));
+       	                        b = Integer.parseInt(str.substring(m+1,n));
+       	                        c = Integer.parseInt(str.substring(n+1,o));
 				T = new Triangle();
 		                T.a = prevsize+a;
 		                T.b = prevsize+b;
@@ -386,8 +391,8 @@ public class ExtractReebGraph {
 		eps = Math.abs(A.Z);
 	}
 	
-	ecomp.epsilon = Math.abs(eps / 1000.0);
-	//System.out.println("epsilon = " + ecomp.epsilon);
+	ecomp.epsilon = Math.abs(eps / 1.0);
+	System.out.println("epsilon = " + ecomp.epsilon);
 	
 	//calculates area of the model
 	whole_area = calculateWholeArea(triangles, triangles_length);
@@ -399,7 +404,7 @@ public class ExtractReebGraph {
 	Integer points_length_o = (Integer) sparse_res.elementAt(1);
 	points_length = points_length_o.intValue();
 	sparse = (int[][]) sparse_res.elementAt(2);
-	//System.out.println("Area of the object using Triangles: " + whole_area);
+	System.out.println("Area of the object using Triangles: " + whole_area);
 	
 	//Resample faces until needed number of vertices is reached (specified at command line)
 	System.out.println("Resampling faces...");
